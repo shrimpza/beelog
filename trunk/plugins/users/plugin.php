@@ -5,11 +5,11 @@ class users extends Plugin {
     var $name = '';
     var $forceMenus = array();
 
-    function users($db, $site) {
-        $this->Plugin($db, $site);
+    function users($site) {
+        $this->Plugin($site);
 
         // initialise an empty user
-        $this->site->user = $db->getObject('user', 1);
+        $this->site->user = DB::getInstance()->getObject('user', 1);
 
         if (isset($_GET['logout'])) {
             // user requested logout, clear session cookie
@@ -17,25 +17,25 @@ class users extends Plugin {
             unset($_COOKIE['bee_session']);
         } else if (!empty($_POST['username']) && !empty($_POST['password'])) {
             // user is logging in
-            $checkUser = $db->QueryA('select id from user where username = ? and password = ?', array($_POST['username'], md5($_POST['password'])));
+            $checkUser = DB::getInstance()->QueryA('select id from user where username = ? and password = ?', array($_POST['username'], md5($_POST['password'])));
             if (is_array($checkUser) && $checkUser[0]['id'] > 0) {
                 // generate session and set cookie
                 $sessionId = md5(uniqid(time(), true));
                 setcookie('bee_session', $sessionId, time() + (60 * 60 * 24 * 30), '/');
 
                 // set session in user
-                $this->site->user = $db->getObject('user', $checkUser[0]['id']);
+                $this->site->user = DB::getInstance()->getObject('user', $checkUser[0]['id']);
                 $this->site->user->session_id = $sessionId;
             }
         } else if (isset($_COOKIE['bee_session'])) {
             // session set, check if it exists
-            $checkUser = $db->QueryA('select id from user where session_id = ?', array($_COOKIE['bee_session']));
+            $checkUser = DB::getInstance()->QueryA('select id from user where session_id = ?', array($_COOKIE['bee_session']));
             if (!is_array($checkUser)) {
                 // invalid session, unset
                 setcookie('bee_session', '', time() - (60 * 60 * 24 * 30), '/');
                 unset($_COOKIE['bee_session']);
             } else {
-                $this->site->user = $db->getObject('user', $checkUser[0]['id']);
+                $this->site->user = DB::getInstance()->getObject('user', $checkUser[0]['id']);
             }
         }
 
