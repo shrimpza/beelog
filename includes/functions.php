@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Converts a PDO result set to a simple array
+ */
 function rsToArray($rs) {
     $arr = $rs->fetchAll(PDO::FETCH_ASSOC);
     $res = array();
@@ -8,6 +11,9 @@ function rsToArray($rs) {
     return $res;
 }
 
+/**
+ * Convert any object structure to an array
+ */
 function objectToArray($obj, $ignoreClasses = array()) {
     return _objectToArray($obj, $ignoreClasses);
 }
@@ -24,11 +30,42 @@ function _objectToArray($obj, $ignoreClasses = array()) {
                 $arr[$key] = $val;
             }
         }
-    } else
+    } else {
         $arr = null;
+    }
     return $arr;
 }
 
+/**
+ * Returned a suitably escaped string for use as a "slug"
+ */
+function slugify($text) {
+    // replace non letter or digits by -
+    $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+
+    // trim
+    $text = trim($text, '-');
+
+    // transliterate
+    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+    // lowercase
+    $text = strtolower($text);
+
+    // remove unwanted characters
+    $text = preg_replace('~[^-\w]+~', '', $text);
+
+    if (empty($text)) {
+        return 'n-a';
+    }
+
+    return $text;
+}
+
+/**
+ * Frequently a JSON module is not available for some or other reason in certain
+ * installations, so use a pure PHP drop-in solution. 
+ */
 if (!function_exists('json_encode')) {
     require_once('json.php');
 

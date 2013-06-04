@@ -10,6 +10,10 @@ class mainmenu extends Plugin {
         $this->Plugin($site);
 
         $this->addGroup('Main Menu', 'main');
+
+        if ($site->user->level >= 5) {
+            $this->addGroup('Configuration', 'config');
+        }
     }
 
     function getSideBox() {
