@@ -80,7 +80,7 @@ class DB {
             }
         }
 
-        $this->objs[] = new DBObject($this, $table, $id, $idCol);
+        $this->objs[] = new DBObject($table, $id, $idCol);
 
         return $this->objs[count($this->objs) - 1];
     }
@@ -91,7 +91,7 @@ class DB {
         if ($rowobjs) {
             $objs = array();
             foreach ($rowobjs as $row) {
-                $newObj = new DBObject($this, $table, $row);
+                $newObj = new DBObject($table, $row);
                 $objs[] = $newObj;
                 $this->objs[] = $newObj;
             }
