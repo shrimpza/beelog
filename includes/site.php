@@ -15,6 +15,7 @@ class Site {
     function Site() {
         $this->incPath = dirname(__FILE__) . '/libs/';
 
+        // initialise the DB instance
         DB::getInstance($GLOBALS['config']['database']);
 
         if (!isset($_GET['module'])) {
