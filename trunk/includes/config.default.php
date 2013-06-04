@@ -4,8 +4,8 @@
         General site config
     *************************************************************************/
     // relative URL to your web root
-    $config['site']['url'] = '/~shrimp/buggen';
-    $config['site']['title'] = 'Buggen';
+    $config['site']['url'] = '/beelog';
+    $config['site']['title'] = 'Beelog';
 
     // if enabled, load times, DB usage and API access info will be printed
     // in the footer of each page
@@ -15,9 +15,9 @@
     /*************************************************************************
         Database
     *************************************************************************/
-    $config['database']['dsn'] = 'mysql:host=localhost;dbname=buggen';
-    $config['database']['user'] = 'buggen';
-    $config['database']['pass'] = 'eNBpZ9GP5vVZQjq6';
+    $config['database']['dsn'] = 'mysql:host=localhost;dbname=beelog';
+    $config['database']['user'] = 'beelog';
+    $config['database']['pass'] = '';
 
     /*************************************************************************
         Default site theme (clean)
