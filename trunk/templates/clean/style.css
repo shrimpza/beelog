@@ -107,7 +107,7 @@ body {
     padding: 0;
     background: #ffffff;
     background-image: url("images/bg/debut_light.png");
-    font-family: "Trebuchet MS", Verdana, Helvetica;
+    font-family: "Trebuchet MS", sans-serif;
     font-size: small;
 }
 
