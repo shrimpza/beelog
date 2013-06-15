@@ -1,0 +1,12 @@
+<div class="inputForm">
+    <form method="post" action="{$site_url}/?module=projects" style="float:left">
+        <input type="hidden" name="id" value="{$p.row.id}" /><br />
+        <h2>{if $p.row.id}Edit{else}Add{/if} Project</h2>
+        <label>Project Name:</label>
+        <input type="text" name="name" value="{$p.row.name}" /><br />
+
+        <br /><br />
+        <label></label><input type="submit" value="Save" />
+
+    </form>
+</div>
