@@ -24,7 +24,7 @@ class users extends Plugin {
                 setcookie('bee_session', $sessionId, time() + (60 * 60 * 24 * 30), '/');
 
                 // set session in user
-                $this->site->user = DB::getInstance()->getObject('user', $checkUser[0]['id']);
+                $this->site->user = DB::getObject('user', $checkUser[0]['id']);
                 $this->site->user->session_id = $sessionId;
             }
         } else if (isset($_COOKIE['bee_session'])) {
@@ -35,7 +35,7 @@ class users extends Plugin {
                 setcookie('bee_session', '', time() - (60 * 60 * 24 * 30), '/');
                 unset($_COOKIE['bee_session']);
             } else {
-                $this->site->user = DB::getInstance()->getObject('user', $checkUser[0]['id']);
+                $this->site->user = DB::getObject('user', $checkUser[0]['id']);
             }
         }
 
@@ -82,7 +82,7 @@ class users extends Plugin {
             if (empty($_POST['username']) || empty($_POST['password'])) {
                 return $this->render('register', array());
             } else {
-                $user = DB::getInstance()->getObject('user', $_POST['username'], 'username');
+                $user = DB::ggetObject('user', $_POST['username'], 'username');
                 if ($user->id > 0) {
                     return $this->render('register', array('error' => array('message' => 'User name ' . $_POST['username'] . ' already in use.')));
                 } else {

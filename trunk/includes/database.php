@@ -61,7 +61,7 @@ class DB {
         return $row;
     }
 
-    function getObjectsArray($table, $where = '', $order = '') {
+    static function getObjectsArray($table, $where = '', $order = '') {
         if (!empty($where)) {
             $where = ' WHERE ' . $where;
         }
@@ -70,30 +70,30 @@ class DB {
         }
         $query = 'SELECT * FROM ' . $table . $where . $order;
 
-        return $this->QueryA($query, array());
+        return DB::getInstance()->QueryA($query, array());
     }
 
-    function getObject($table, $id = 0, $idCol = 'id') {
-        for ($i = 0; $i < count($this->objs); $i++) {
-            if (($this->objs[$i]->row[$idCol] == $id) && ($this->objs[$i]->table == $table)) {
-                return $this->objs[$i];
+    static function getObject($table, $id = 0, $idCol = 'id') {
+        for ($i = 0; $i < count(DB::getInstance()->objs); $i++) {
+            if ((DB::getInstance()->objs[$i]->row[$idCol] == $id) && (DB::getInstance()->objs[$i]->table == $table)) {
+                return DB::getInstance()->objs[$i];
             }
         }
 
-        $this->objs[] = new DBObject($table, $id, $idCol);
+        DB::getInstance()->objs[] = new DBObject($table, $id, $idCol);
 
-        return $this->objs[count($this->objs) - 1];
+        return DB::getInstance()->objs[count(DB::getInstance()->objs) - 1];
     }
 
-    function getObjects($table, $where = '', $order = '') {
-        $rowobjs = $this->getObjectsArray($table, $where, $order);
+    static function getObjects($table, $where = '', $order = '') {
+        $rowobjs = DB::getInstance()->getObjectsArray($table, $where, $order);
 
         if ($rowobjs) {
             $objs = array();
             foreach ($rowobjs as $row) {
                 $newObj = new DBObject($table, $row);
                 $objs[] = $newObj;
-                $this->objs[] = $newObj;
+                DB::getInstance()->objs[] = $newObj;
             }
             return $objs;
         } else {
