@@ -17,7 +17,7 @@ class mainmenu extends Plugin {
     }
 
     function getSideBox() {
-        $smallicons = 0;
+        $smallicons = true;
         return $this->render('menu', array('links' => $this->links, 'smallicons' => $smallicons));
     }
 

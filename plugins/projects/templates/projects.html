@@ -1,20 +1,20 @@
 <table width="100%" border="0">
-    <tr>
-        <th>Project</th>
-    </tr>
-    {foreach from=$projects item=p}
-    <tr class="{cycle values='row,rowAlt'}">
-        <td>
-            <a href="{$site_url}/?module=projects&delete={$p.row.id}" title="Delete"><img src="{$site_url}/templates/{$theme}/images/edit-delete-big.png" align="absmiddle"></a>
-            <a href="{$site_url}/?module=projects&edit={$p.row.id}" title="Edit"><img src="{$site_url}/templates/{$theme}/images/edit-edit-big.png" align="absmiddle"></a>
-            {$p.row.name}
-        </td>
-    </tr>
-    {/foreach}
-    <tr class="{cycle values='row,rowAlt'}">
-        <th colspan="2">
-            <a href="{$site_url}/?module=projects&edit=0"><img src="{$site_url}/templates/{$theme}/images/edit-new-big.png" align="absmiddle">
-                Add Project</a>
-        </th>
-    </tr>
+  <tr>
+    <th>Project</th>
+  </tr>
+  {foreach from=$projects item=p}
+  <tr class="{cycle values='row,rowAlt'}">
+    <td>
+      <a href="{$site_url}/?module=projects&delete={$p.row.id}" title="Delete"><img src="{$site_url}/templates/{$theme}/images/i_delete_24.png" align="absmiddle"></a>
+      <a href="{$site_url}/?module=projects&edit={$p.row.id}" title="Edit"><img src="{$site_url}/templates/{$theme}/images/i_edit_24.png" align="absmiddle"></a>
+      {$p.row.name}
+    </td>
+  </tr>
+  {/foreach}
+  <tr class="{cycle values='row,rowAlt'}">
+    <th colspan="2">
+      <a href="{$site_url}/?module=projects&edit=0"><img src="{$site_url}/templates/{$theme}/images/i_add_24.png" align="absmiddle">
+        Add Project</a>
+    </th>
+  </tr>
 </table>
