@@ -1,0 +1,24 @@
+<table width="100%" border="0">
+  <tr>
+    <th>Order</th>
+    <th>Priority</th>
+  </tr>
+  {foreach from=$priorities item=p}
+  <tr class="{cycle values='row,rowAlt'}">
+    <td>
+      <a href="{$site_url}/?module=priority&delete={$p.row.id}" title="Delete"><img src="{$site_url}/templates/{$theme}/images/i_delete_24.png" class="inline"></a>
+      <a href="{$site_url}/?module=priority&edit={$p.row.id}" title="Edit"><img src="{$site_url}/templates/{$theme}/images/i_edit_24.png" class="inline"></a>
+      {$p.row.name}
+    </td>
+    <td>
+      {$p.row.display_order}
+    </td>
+  </tr>
+  {/foreach}
+  <tr class="{cycle values='row,rowAlt'}">
+    <th colspan="2">
+      <a href="{$site_url}/?module=priority&edit=0"><img src="{$site_url}/templates/{$theme}/images/i_add_24.png" class="inline">
+        Add Priority</a>
+    </th>
+  </tr>
+</table>

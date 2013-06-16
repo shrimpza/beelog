@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS `bug` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ident` varchar(64) NOT NULL,
   `title` varchar(128) NOT NULL,
-  `slug` varchar(142) NOT NULL,
+  `slug` varchar(128) NOT NULL,
   `description` text NOT NULL,
   `project_id` int(11) NOT NULL,
   `initiative_id` int(11) DEFAULT NULL,
@@ -14,6 +15,7 @@ CREATE TABLE IF NOT EXISTS `bug` (
   `eta` decimal(5,2) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`),
+  UNIQUE KEY `ident` (`ident`),
   KEY `project_id` (`project_id`),
   KEY `initiative_id` (`initiative_id`),
   KEY `user_id` (`user_id`),
@@ -41,14 +43,14 @@ CREATE TABLE IF NOT EXISTS `initiative` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`),
   KEY `project_id` (`project_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `priority` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
-  `order` tinyint(4) NOT NULL,
+  `display_order` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `project` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -61,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `project` (
 CREATE TABLE IF NOT EXISTS `status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` int(11) NOT NULL,
-  `order` tinyint(4) NOT NULL,
+  `display_order` tinyint(4) NOT NULL,
   `closed` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
