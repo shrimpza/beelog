@@ -1,0 +1,19 @@
+<form method="post" action="{$site_url}/?module=status" class="inputForm">
+  <input type="hidden" name="id" value="{$s.row.id}" />
+
+  <h2>{if $s.row.id}Edit{else}Add{/if} Status</h2>
+
+  <label>Description:</label>
+  <input type="text" name="name" value="{$s.row.name}" /><br />
+
+  <label>Display Order:</label>
+  <input type="text" name="display_order" value="{$s.row.display_order}" /><br />
+
+  <label for="closed">Considered Closed:</label>
+  <input type="checkbox" name="closed" value="1" {if $s.row.closed}checked="checked"{/if} /><br />
+
+
+  <br /><br />
+  <label></label><input type="submit" value="Save" />
+
+</form>
