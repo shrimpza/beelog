@@ -8,13 +8,18 @@
         function projects($site) {
             $this->Plugin($site);
 
-            $this->site->plugins['mainmenu']->addLink('config', 'Projects', '?module=projects', 'config_projects');
+            $this->site->plugins['mainmenu']->addLink('config', 'Projects', '?module=projects', 'projects');
         }
 
         function getContent() {
             if (isset($_GET['edit'])) {
                 $project = objectToArray(DB::getObject('project', $_GET['edit']));
                 return $this->render('project', array('p' => $project));
+            } else if (isset($_GET['delete'])) {
+                $project = DB::getObject('project', $_GET['delete']);
+                $project->delete();
+
+                return $this->projectList();
             } else if (isset($_POST['id'])) {
                 $project = DB::getObject('project', $_POST['id']);
 
