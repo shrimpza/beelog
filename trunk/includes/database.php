@@ -4,6 +4,7 @@
 
         var $objs = array();
         var $numQueries = 0;
+        var $lastError = null;
         static $instance = null;
 
         function DB($conf) {
@@ -27,7 +28,8 @@
             if ($prep->execute($params)) {
                 return $prep;
             } else {
-                print_r(array('errorInfo' => $prep->errorInfo(), 'sql' => $sql));
+                $error = $prep->errorInfo();
+                $this->lastError = $error[2];
                 return false;
             }
         }
@@ -42,7 +44,7 @@
         }
 
         function queryA($sql, $params) {
-            $rs = $this->Query($sql, $params);
+            $rs = $this->query($sql, $params);
             if ($rs) {
                 return $this->rsToArray($rs);
             } else {
@@ -52,7 +54,7 @@
 
         function emptyRow($table) {
             $row = array();
-            $r = $this->conn->Query('select * from ' . $table . ' limit 0');
+            $r = $this->conn->query('select * from ' . $table . ' limit 0');
             for ($i = 0; $i < $r->columnCount(); $i++) {
                 $col = $r->getColumnMeta($i);
                 $row[$col['name']] = '';
@@ -178,7 +180,7 @@
 
         function delete() {
             $query = 'DELETE FROM ' . $this->table . ' WHERE id = ?';
-            DB::getInstance()->query($query, array($this->row['id']));
+            return DB::getInstance()->query($query, array($this->row['id']));
         }
 
         function __get($var) {

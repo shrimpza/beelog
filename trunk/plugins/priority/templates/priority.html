@@ -1,0 +1,16 @@
+<form method="post" action="{$site_url}/?module=priority" class="inputForm">
+  <input type="hidden" name="id" value="{$p.row.id}" />
+
+  <h2>{if $p.row.id}Edit{else}Add{/if} Priority</h2>
+
+  <label>Description:</label>
+  <input type="text" name="name" value="{$p.row.name}" /><br />
+
+  <label>Display Order:</label>
+  <input type="text" name="display_order" value="{$p.row.display_order}" /><br />
+
+
+  <br /><br />
+  <label></label><input type="submit" value="Save" />
+
+</form>
