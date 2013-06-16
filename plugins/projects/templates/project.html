@@ -1,12 +1,79 @@
-<div class="inputForm">
-    <form method="post" action="{$site_url}/?module=projects" style="float:left">
-        <input type="hidden" name="id" value="{$p.row.id}" /><br />
-        <h2>{if $p.row.id}Edit{else}Add{/if} Project</h2>
-        <label>Project Name:</label>
-        <input type="text" name="name" value="{$p.row.name}" /><br />
+<form method="post" action="{$site_url}/?module=projects" class="inputForm">
+  <input type="hidden" name="id" value="{$p.row.id}" />
 
-        <br /><br />
-        <label></label><input type="submit" value="Save" />
+  <h2>{if $p.row.id}Edit{else}Add{/if} Project</h2>
 
-    </form>
-</div>
+  <label>Project Name:</label>
+  <input type="text" name="name" value="{$p.row.name}" /><br />
+
+  <h3>Initiatives</h3>
+
+  <div id="initiatives">
+    {foreach from=$p.initiatives item=i}
+    <div>
+      <input type="hidden" name="i_id[]" value="{$i.row.id}" class="initId"/>
+      <input type="hidden" name="i_del[]" value="0" class="initDel" />
+      <label></label><input type="text" name="i_name[]" value="{$i.row.name}" />
+      <img src="{$site_url}/templates/{$theme}/images/i_delete_16.png" class="inline delInit">
+      <br />
+    </div>
+    {/foreach}
+  </div>
+
+  <label></label>
+  <div class="inputDiv">
+    <span id="addInit"><img src="{$site_url}/templates/{$theme}/images/i_add_16.png" class="inline">Add Initiative</span>
+  </div>
+
+  <br /><br />
+  <label></label><input type="submit" value="Save" />
+
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $("#addInit").each(function() {
+        $(this).css("cursor", "pointer");
+        $(this).click(function() {
+          var parent = $("<div/>");
+          $("<input/>")
+                  .attr("name", "i_id[]")
+                  .attr("type", "hidden")
+                  .attr("class", "initId")
+                  .val("0")
+                  .appendTo(parent);
+          $("<input/>")
+                  .attr("name", "i_del[]")
+                  .attr("type", "hidden")
+                  .attr("class", "initDel")
+                  .val("0")
+                  .appendTo(parent);
+          $("<label/>").appendTo(parent);
+          $("<input/>")
+                  .attr("name", "i_name[]")
+                  .attr("type", "text")
+                  .appendTo(parent);
+          $("<img/>")
+                  .attr("src", "templates/clean/images/i_delete_16.png")
+                  .attr("class", "inline delInit")
+                  .css("cursor", "pointer")
+                  .click(delInitiative)
+                  .appendTo(parent);
+          $("<br/>").appendTo(parent);
+          parent.hide();
+          parent.appendTo("#initiatives");
+          parent.toggle('fast');
+        });
+      });
+
+      $(".delInit").each(function() {
+        $(this).css("cursor", "pointer");
+        $(this).click(delInitiative);
+      });
+    });
+
+    function delInitiative(e) {
+      $(e.target).siblings('.initDel').val('1');
+      $(e.target).parent().toggle('fast');
+    }
+</script>
