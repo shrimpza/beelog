@@ -1,0 +1,28 @@
+<table width="100%" border="0">
+  <tr>
+    <th>Status</th>
+    <th>Display Order</th>
+    <th>Considered Closed</th>
+  </tr>
+  {foreach from=$status item=s}
+  <tr class="{cycle values='row,rowAlt'}">
+    <td>
+      <a href="{$site_url}/?module=status&delete={$s.row.id}" title="Delete"><img src="{$site_url}/templates/{$theme}/images/i_delete_24.png" class="inline"/></a>
+      <a href="{$site_url}/?module=status&edit={$s.row.id}" title="Edit"><img src="{$site_url}/templates/{$theme}/images/i_edit_24.png" class="inline"/></a>
+      {$s.row.name}
+    </td>
+    <td>
+      {$s.row.display_order}
+    </td>
+    <td>
+      {if $s.row.closed}<img src="{$site_url}/templates/{$theme}/images/i_ok_24.png" class="inline"/>{/if}
+    </td>
+  </tr>
+  {/foreach}
+  <tr class="{cycle values='row,rowAlt'}">
+    <th colspan="3">
+      <a href="{$site_url}/?module=status&edit=0"><img src="{$site_url}/templates/{$theme}/images/i_add_24.png" class="inline"/>
+        Add Status</a>
+    </th>
+  </tr>
+</table>

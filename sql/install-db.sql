@@ -62,11 +62,11 @@ CREATE TABLE IF NOT EXISTS `project` (
 
 CREATE TABLE IF NOT EXISTS `status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` int(11) NOT NULL,
+  `name` varchar(32) NOT NULL,
   `display_order` tinyint(4) NOT NULL,
   `closed` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `svn_link` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
