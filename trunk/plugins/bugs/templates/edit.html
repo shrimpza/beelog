@@ -1,0 +1,38 @@
+<form method="post" action="{$site_url}/?module=bugs" class="inputForm">
+  <input type="hidden" name="id" value="{$b.row.id}" />
+
+  <h2>{if $b.row.id}Edit{else}Add{/if} {$b_desc} {if $b.row.id}#{$b.row.id}{/if}</h2>
+
+  <label>Short Description:</label>
+  <input type="text" name="title" value="{$b.row.title}" /><br />
+
+  <label>Project:</label>
+  <select name="project_id">
+    {foreach from=$projects item=p}
+    <option value="{$p.row.id}">{$p.row.name}</option>
+    {/foreach}
+  </select><br />
+
+  <label>Priority:</label>
+  <select name="priority_id">
+    {foreach from=$priority item=p}
+    <option value="{$p.row.id}">{$p.row.name}</option>
+    {/foreach}
+  </select><br />
+
+  {if $b.row.id}
+  <label>Status:</label>
+  <select name="status_id">
+    {foreach from=$status item=s}
+    <option value="{$s.row.id}">{$s.row.name}</option>
+    {/foreach}
+  </select><br />
+  {/if}
+
+  <label>Full Description:</label>
+  <textarea name="description">{$b.row.description}</textarea>
+
+  <br /><br />
+  <label></label><input type="submit" value="Save" />
+
+</form>
