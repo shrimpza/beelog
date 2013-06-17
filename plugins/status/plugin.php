@@ -2,6 +2,9 @@
 
     class status extends Plugin {
 
+        var $name = 'Status Configuration';
+        var $level = 5;
+
         function status($site) {
             $this->Plugin($site);
 

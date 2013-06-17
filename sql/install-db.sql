@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `bug` (
   KEY `assigned_user_id` (`assigned_user_id`),
   KEY `priority_id` (`priority_id`),
   KEY `status_id` (`status_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -49,6 +49,8 @@ CREATE TABLE IF NOT EXISTS `priority` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `display_order` tinyint(4) NOT NULL,
+  `colour` varchar(8) NOT NULL,
+  `icon` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
@@ -64,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `display_order` tinyint(4) NOT NULL,
+  `icon` varchar(128) NOT NULL,
   `closed` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
