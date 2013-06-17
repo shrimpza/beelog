@@ -23,6 +23,7 @@
 
                 $priority->name = trim($_POST['name']);
                 $priority->display_order = trim($_POST['display_order']);
+                $priority->colour = trim($_POST['colour']);
 
                 $priority->save();
 

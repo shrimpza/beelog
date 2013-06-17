@@ -197,6 +197,21 @@
             }
         }
 
+        function loadRelations() {
+            $fields = array_keys($this->row);
+            foreach ($fields as $k) {
+                $table = substr($k, 0, -3);
+                if (substr($k, -3) == '_id') {
+                    if ($this->row[$k] != null && $this->row[$k] > 0) {
+                        $table = substr($k, 0, -3);
+                        $this->$table = DB::getObject($table, $this->row[$k]);
+                    } else {
+                        $this->$table = null;
+                    }
+                }
+            }
+        }
+
         function __call($func, $params) {
             if (strpos($func, "get_") === 0) {
                 $table = substr($func, 4);

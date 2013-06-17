@@ -1,0 +1,26 @@
+<table width="100%" border="0">
+  <tr>
+    <th>#</th>
+    <th>Identifier</th>
+    <th>Title</th>
+    <th>Created Date</th>
+    <th>Priority</th>
+    <th>Status</th>
+    <th>Project</th>
+    <th>Initiative</th>
+  </tr>
+  {if $bugs}
+  {foreach from=$bugs item=b}
+  <tr class="{cycle values='row,rowAlt'}" style="background-color:{$p.priority.colour}">
+    <td>#{$b.row.id}</td>
+    <td>{$b.row.ident}</td>
+    <td>{$b.row.title}</td>
+    <td>{$b.row.created_date}</td>
+    <td>{$b.priority.name}</td>
+    <td>{$b.status.name}</td>
+    <td>{$b.project.name}</td>
+    <td>{if $b.initiative}{$b.initiative.name}{else}--{/if}</td>
+  </tr>
+  {/foreach}
+  {/if}
+</table>
