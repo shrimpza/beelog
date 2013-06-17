@@ -7,16 +7,20 @@
   <input type="text" name="title" value="{$b.row.title}" /><br />
 
   <label>Project:</label>
-  <select name="project_id">
+  <select name="project_id" id="project">
     {foreach from=$projects item=p}
     <option value="{$p.row.id}">{$p.row.name}</option>
     {/foreach}
   </select><br />
 
+  <label>Initiative:</label>
+  <select name="initiative_id" id="initiative">
+  </select><br />
+
   <label>Priority:</label>
-  <select name="priority_id">
+  <select name="priority_id" id="priority">
     {foreach from=$priority item=p}
-    <option value="{$p.row.id}">{$p.row.name}</option>
+    <option value="{$p.row.id}" style="background-color: {$p.row.colour}">{$p.row.name}</option>
     {/foreach}
   </select><br />
 
@@ -36,3 +40,28 @@
   <label></label><input type="submit" value="Save" />
 
 </form>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+      $('#priority').change(function() {
+        $(this).attr('style', $(this).find(":selected").attr('style'));
+      });
+      $('#project').change(function() {
+        $('#initiative').empty();
+        var projectId = $(this).find(":selected").val();
+        jQuery.getJSON('index.php', {
+          jsonMode: 1, module: 'bugs', project: projectId
+        }, function(list) {
+          if (list) {
+            for (var i = 0; i < list.length; i++) {
+              $('<option/>')
+                      .attr('value', list[i].row.id)
+                      .text(list[i].row.name)
+                      .appendTo($("#initiative"));
+            }
+          }
+        });
+      });
+    });
+</script>
