@@ -1,3 +1,6 @@
+<script type="text/javascript" src="{$site_url}/includes/javascript/spectrum.js"></script>
+<link rel="stylesheet" href="{$site_url}/includes/javascript/spectrum.css"/>
+
 <form method="post" action="{$site_url}/?module=priority" class="inputForm">
   <input type="hidden" name="id" value="{$p.row.id}" />
 
@@ -8,6 +11,9 @@
 
   <label>Display Order:</label>
   <input type="text" name="display_order" value="{$p.row.display_order}" /><br />
+
+  <label>Colour:</label>
+  <input type="color" name="colour" value="{$p.row.colour}" /><br />
 
 
   <br /><br />
