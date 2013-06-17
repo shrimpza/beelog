@@ -2,6 +2,9 @@
 
     class priority extends Plugin {
 
+        var $name = 'Priority Configuration';
+        var $level = 5;
+        
         function priority($site) {
             $this->Plugin($site);
 
