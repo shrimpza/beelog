@@ -11,15 +11,15 @@
   </tr>
   {if $bugs}
   {foreach from=$bugs item=b}
-  <tr class="{cycle values='row,rowAlt'}" style="background-color:{$p.priority.colour}">
+  <tr class="{cycle values='row,rowAlt'}" style="background-color:{$b.priority.row.colour}">
     <td>#{$b.row.id}</td>
     <td>{$b.row.ident}</td>
     <td>{$b.row.title}</td>
     <td>{$b.row.created_date}</td>
-    <td>{$b.priority.name}</td>
-    <td>{$b.status.name}</td>
-    <td>{$b.project.name}</td>
-    <td>{if $b.initiative}{$b.initiative.name}{else}--{/if}</td>
+    <td>{$b.priority.row.name}</td>
+    <td>{$b.status.row.name}</td>
+    <td>{$b.project.row.name}</td>
+    <td>{if $b.initiative}{$b.initiative.row.name}{else}--{/if}</td>
   </tr>
   {/foreach}
   {/if}

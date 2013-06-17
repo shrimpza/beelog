@@ -7,6 +7,11 @@
     $config['site']['url'] = '/beelog';
     $config['site']['title'] = 'Beelog';
 
+    // the terminology used to refer to "bugs" can be changed here, for example
+    // you could use, Bugs, Issues, Tasks, etc.
+    $config['bugs']['desc'] = 'Bug';
+    $config['bugs']['desc_plural'] = 'Bugs';
+
     // if enabled, load times, DB usage and API access info will be printed
     // in the footer of each page
     $config['site']['showstats'] = false;

@@ -77,6 +77,8 @@
             $this->tplVars['title'] = $GLOBALS['config']['site']['title'];
             $this->tplVars['site_url'] = $GLOBALS['config']['site']['url'];
             $this->tplVars['theme'] = $GLOBALS['config']['templates']['theme'];
+            $this->tplVars['b_desc'] = $GLOBALS['config']['bugs']['desc'];
+            $this->tplVars['b_descs'] = $GLOBALS['config']['bugs']['desc_plural'];
 
             foreach ($this->tplVars as $var => $val) {
                 $smarty->assign($var, $val);

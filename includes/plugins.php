@@ -23,6 +23,8 @@
             $smarty->assign('site_url', $GLOBALS['config']['site']['url']);
             $smarty->assign('url_params', $_GET);
             $smarty->assign('theme', $GLOBALS['config']['templates']['theme']);
+            $smarty->assign('b_desc',  $GLOBALS['config']['bugs']['desc']);
+            $smarty->assign('b_descs', $GLOBALS['config']['bugs']['desc_plural']);
 
             return $smarty->fetch($template . '.html');
         }
