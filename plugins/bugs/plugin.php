@@ -15,11 +15,51 @@
         }
 
         function getContent() {
-            if (isset($_GET['edit'])) {
+            if (isset($_GET['view'])) {
+                return $this->viewBug($_GET['view']);
+            } else if (isset($_GET['edit'])) {
                 return $this->editBug($_GET['edit']);
+            } else if (isset($_POST['id'])) {
+                $bug = $this->saveBug($_POST);
+                return $this->viewBug($bug->id);
             } else {
                 return $this->bugList();
             }
+        }
+
+        function saveBug($src) {
+            $bug = DB::getObject('bug', $src['id']);
+
+            $bug->fromArray($src);
+            $bug->slug = slugify($bug->title);
+            $bug->updated_date = time();
+
+            if ($bug->id == 0) {
+                $bug->user_id = $this->site->user->id;
+                $bug->created_date = time();
+            }
+
+            if (!$bug->initiative_id) {
+                $bug->initiative_id = null;
+            }
+            if (!$bug->assigned_user_id) {
+                $bug->assigned_user_id = null;
+            }
+            if (!$bug->status_id) {
+                $status = DB::getObjects('status', 'closed = 0', 'display_order');
+                $bug->status_id = $status[0]->id;
+            }
+
+            if ($bug->save()) {
+                $project = DB::getObject('project', $bug->project_id);
+                $project->counter += 1;
+                $project->save();
+
+                $bug->ident = $project->slug . '-' . ($project->counter);
+                $bug->save();
+            }
+
+            return $bug;
         }
 
         function bugList($projectId = 0) {
@@ -39,8 +79,15 @@
             return $this->render('list', array('bugs' => objectToArray($bugs)));
         }
 
+        function viewBug($id) {
+            $bug = DB::getObject('bug', $id);
+            $bug->loadRelations();
+
+            return $this->render('view', array('b' => objectToArray($bug)));
+        }
+
         function editBug($id = 0) {
-            $bug = DB::getObject('bug', $_GET['edit']);
+            $bug = DB::getObject('bug', $id);
 
             $priority = DB::getObjects('priority', '', 'display_order desc');
             $status = DB::getObjects('status', '', 'display_order');

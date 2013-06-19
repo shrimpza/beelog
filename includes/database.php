@@ -139,11 +139,13 @@
                 $query = $this->insertRow();
             }
 
-            DB::getInstance()->query($query['q'], $query['values']);
+            $result = DB::getInstance()->query($query['q'], $query['values']);
 
-            if ($this->row['id'] < 1) {
+            if ($result && $this->row['id'] < 1) {
                 $this->row['id'] = DB::getInstance()->conn->lastInsertId();
             }
+            
+            return $result;
         }
 
         function insertRow() {
@@ -181,6 +183,19 @@
         function delete() {
             $query = 'DELETE FROM ' . $this->table . ' WHERE id = ?';
             return DB::getInstance()->query($query, array($this->row['id']));
+        }
+
+        /**
+         * Note that although we use "safe" parametised queries, it is the 
+         * responsibility of the caller to sanitise data before saving if
+         * required.
+         */
+        function fromArray($array) {
+            foreach (array_keys($this->row) as $field) {
+                if (in_array($field, array_keys($array))) {
+                    $this->row[$field] = $array[$field];
+                }
+            }
         }
 
         function __get($var) {
