@@ -9,7 +9,7 @@
   <label>Project:</label>
   <select name="project_id" id="project">
     {foreach from=$projects item=p}
-    <option value="{$p.row.id}">{$p.row.name}</option>
+    <option value="{$p.row.id}" {if $p.row.id == $b.row.project_id}selected="selected"{/if}>{$p.row.name}</option>
     {/foreach}
   </select><br />
 
@@ -20,7 +20,7 @@
   <label>Priority:</label>
   <select name="priority_id" id="priority">
     {foreach from=$priority item=p}
-    <option value="{$p.row.id}" style="background-color: {$p.row.colour}">{$p.row.name}</option>
+    <option value="{$p.row.id}" {if $p.row.id == $b.row.priority_id}selected="selected"{/if} style="background-color: {$p.row.colour}">{$p.row.name}</option>
     {/foreach}
   </select><br />
 
@@ -28,7 +28,7 @@
   <label>Status:</label>
   <select name="status_id">
     {foreach from=$status item=s}
-    <option value="{$s.row.id}">{$s.row.name}</option>
+    <option value="{$s.row.id}" {if $s.row.id == $b.row.status_id}selected="selected"{/if}>{$s.row.name}</option>
     {/foreach}
   </select><br />
   {/if}
@@ -42,26 +42,34 @@
 </form>
 
 <script type="text/javascript">
+    var initId = '{if $b.row.id}{$b.row.initiative_id}{else}0{/if}';
+
     $(document).ready(function() {
 
       $('#priority').change(function() {
         $(this).attr('style', $(this).find(":selected").attr('style'));
       });
-      $('#project').change(function() {
-        $('#initiative').empty();
-        var projectId = $(this).find(":selected").val();
-        jQuery.getJSON('index.php', {
-          jsonMode: 1, module: 'bugs', project: projectId
-        }, function(list) {
-          if (list) {
-            for (var i = 0; i < list.length; i++) {
-              $('<option/>')
-                      .attr('value', list[i].row.id)
-                      .text(list[i].row.name)
-                      .appendTo($("#initiative"));
-            }
-          }
-        });
-      });
+
+      $('#project').change(loadInitiative);
+
+      loadInitiative();
     });
+
+    function loadInitiative() {
+      $('#initiative').empty();
+      var projectId = $('#project').find(":selected").val();
+      jQuery.getJSON('index.php', {
+        jsonMode: 1, module: 'bugs', project: projectId
+      }, function(list) {
+        if (list) {
+          for (var i = 0; i < list.length; i++) {
+            $('<option/>')
+                    .attr('value', list[i].row.id)
+                    .text(list[i].row.name)
+                    .appendTo($("#initiative"));
+          }
+        }
+        $('#initiative').val(initId);
+      });
+    }
 </script>
