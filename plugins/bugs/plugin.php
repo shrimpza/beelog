@@ -83,7 +83,14 @@
             $bug = DB::getObject('bug', $id);
             $bug->loadRelations();
 
-            return $this->render('view', array('b' => objectToArray($bug)));
+            $comments = $bug->get_comment_list();
+            if ($comments) {
+                foreach ($comments as $comment) {
+                    $comment->loadRelations(array('user'));
+                }
+            }
+
+            return $this->render('view', array('b' => objectToArray($bug), 'comments' => objectToArray($comments)));
         }
 
         function editBug($id = 0) {

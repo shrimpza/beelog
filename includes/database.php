@@ -144,7 +144,7 @@
             if ($result && $this->row['id'] < 1) {
                 $this->row['id'] = DB::getInstance()->conn->lastInsertId();
             }
-            
+
             return $result;
         }
 
@@ -212,11 +212,11 @@
             }
         }
 
-        function loadRelations() {
+        function loadRelations($tables = null) {
             $fields = array_keys($this->row);
             foreach ($fields as $k) {
                 $table = substr($k, 0, -3);
-                if (substr($k, -3) == '_id') {
+                if (substr($k, -3) == '_id' && ($tables == null || in_array($table, $tables))) {
                     if ($this->row[$k] != null && $this->row[$k] > 0) {
                         $table = substr($k, 0, -3);
                         $this->$table = DB::getObject($table, $this->row[$k]);
