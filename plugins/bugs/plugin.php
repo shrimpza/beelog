@@ -32,11 +32,11 @@
 
             $bug->fromArray($src);
             $bug->slug = slugify($bug->title);
-            $bug->updated_date = time();
+            $bug->updated_date = date('Y-m-d H:i:s');
 
             if ($bug->id == 0) {
                 $bug->user_id = $this->site->user->id;
-                $bug->created_date = time();
+                $bug->created_date = date('Y-m-d H:i:s');
             }
 
             if (!$bug->initiative_id) {
