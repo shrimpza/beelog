@@ -1,8 +1,55 @@
-<div>
+<div class="bug title">
   <label>Short Description:</label>
   <span>{$b.row.title}</span>
 </div>
-<div>
+<div class="bug project">
   <label>Project:</label>
   <span>{$b.project.row.name}</span>
 </div>
+<div class="bug initiative">
+  <label>Initiative:</label>
+  <span>{if $b.row.initiative_id}{$b.initiative.row.name}{else}--{/if}</span>
+</div>
+<div class="bug priority">
+  <label>Priority:</label>
+  <span>{$b.priority.row.name}</span>
+</div>
+<div class="bug status">
+  <label>Status:</label>
+  <span>{$b.status.row.name}</span>
+</div>
+<div class="bug description">
+  <label>Description:</label>
+  <span>{$b.row.description|nl2br}</span>
+</div>
+
+<div class="bug comments">
+  {if $comments}
+  <label>Comments:</label>
+  {foreach from=$comments item=c}
+  <div class="comment">
+    <label>by {$c.user.row.name} on {$c.row.created_date}</label>
+    <span>{$c.row.comment}</span>
+  </div>
+  {/foreach}
+  {/if}
+  <div id="newComment">
+    <form method="post" action="{$site_url}/?module=bugs&view={$b.row.id}" class="inputForm">
+      <input type="hidden" name="comment_id" value="0" />
+      <label>Comment:</label>
+      <textarea name="comment"></textarea><br />
+      <label></label><input type="submit" value="Save" />
+    </form>
+  </div>
+  <div id="newCommentLink"><img src="{$site_url}/templates/{$theme}/images/i_comment_24.png" class="inline"/>Add Comment</div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $("#newCommentLink").click(function() {
+        $("#newComment").toggle('fast');
+        $(this).toggle('fast');
+      }).css("cursor", "pointer");
+      $("#newComment").css("display", "none");
+    });
+</script>

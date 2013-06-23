@@ -1,0 +1,78 @@
+.bug.title {
+  padding-bottom: 10px;
+}
+
+.bug.title > label {
+  display: none;
+}
+
+.bug.title > span {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+.bug.project {
+  font-size: 1.2em;
+  width: 40%;
+  display: inline-block;
+}
+
+.bug.initiative {
+  font-size: 1.2em;
+  width: 40%;
+  display: inline-block;
+}
+
+.bug.project > label, .bug.initiative > label, .bug.priority > label, .bug.status > label {
+  display: inline-block;
+  width: 75px;
+}
+
+.bug.project > span, .bug.initiative > span {
+  font-weight: bold;
+}
+
+.bug.priority {
+  font-size: 1.1em;
+  width: 40%;
+  display: inline-block;
+}
+
+.bug.status {
+  font-size: 1.1em;
+  width: 40%;
+  display: inline-block;
+}
+
+.bug.priority > span, .bug.status > span {
+  font-weight: bold;
+}
+
+.bug.description {
+  padding: 10px 0 10px 0;
+}
+
+.bug.description > label {
+  font-size: 1.2em;
+  font-weight: bold;
+  display: block;
+}
+
+.bug.description > span {
+  display: block;
+}
+
+.bug.comments {
+  padding: 10px;
+}
+
+.bug.comments > label {
+  padding: 10px 0 10px 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  display: block;
+}
+
+#newCommentLink {
+  text-align: center;
+}

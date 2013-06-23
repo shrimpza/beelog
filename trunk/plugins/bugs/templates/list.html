@@ -11,7 +11,7 @@
   </tr>
   {if $bugs}
   {foreach from=$bugs item=b}
-  <tr class="{cycle values='row,rowAlt'}" style="background-color:{$b.priority.row.colour}">
+  <tr class="{cycle values='row,rowAlt'} bugRow" style="background-color:{$b.priority.row.colour}" data-id="{$b.row.id}">
     <td>#{$b.row.id}</td>
     <td>{$b.row.ident}</td>
     <td>{$b.row.title}</td>
@@ -24,3 +24,14 @@
   {/foreach}
   {/if}
 </table>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('.bugRow').each(function() {
+        $(this).css("cursor", "pointer");
+        $(this).click(function() {
+          window.location.href = '{$site_url}?module=bugs&view=' + $(this).data('id');
+        });
+      });
+    });
+</script>
